@@ -1,10 +1,11 @@
-# Script to detect not authorized DHCP servers. Bro needs to see DHCP traffic of course. Will not work when servers and clients are in the same Vlan, unless you mirror that traffic.
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 # Contributor(s):
 # Michal Purzynski mpurzynski@mozilla.com
+#
+# Script to detect not authorized DHCP servers. Bro needs to see DHCP traffic of course. Will not work when servers and clients are in the same Vlan, unless you mirror that traffic.
 
 @load base/protocols/dhcp/utils
 
