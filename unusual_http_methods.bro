@@ -40,7 +40,7 @@ export {
     const ignore_hosts_resp: set[subnet] &redef;
 }
 
-event http_header(c: connection, is_orig: bool, name: string, value: string)
+event http_reply(c: connection, version: string, code: count, reason: string)
 {
 
     local cluster_client_ip: addr;
