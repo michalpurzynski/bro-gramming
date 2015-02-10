@@ -59,12 +59,12 @@ event bro_init()
 
 event RADIUS::log_radius(rec: RADIUS::Info)
 {
-    if ( rec$result != "success" ) {
-        if ( |rec$username| > 1 )
+    if ( ( rec?$result ) && ( rec$result != "success" ) ) {
+        if ( ( rec?$username ) && ( |rec$username| > 1 ) )
             SumStats::observe("radius.auth_errors.user",
                             [$str=rec$username],
                             SumStats::Observation($num=1));
-        if ( |rec$connect_info| > 1 )
+        if ( ( rec?$connect_info ) && ( |rec$connect_info| > 1 ) )
             SumStats::observe("radius.auth_errors.mac",
                             [$str=rec$connect_info],
                             SumStats::Observation($num=1));

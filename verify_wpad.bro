@@ -39,6 +39,10 @@ event file_hash(f: fa_file, kind: string, hash: string)
     local lastconn: connection;
 
     for ( cid in f$conns ) {
+        if ( ! f$conns[cid]?$http )
+            return;
+        if ( ! f$conns[cid]$http?$method )
+            return;
         lastconn = f$conns[cid];
         if ( f$conns[cid]$http$method != "GET" )
             return;
@@ -86,6 +90,11 @@ event file_hash(f: fa_file, kind: string, hash: string)
 event DNS::log_dns(rec: DNS::Info)
 {
     local is_whitelisted: bool;
+
+    if ( ! rec?$qtype_name )
+        return;
+    if ( ! rec?$query )
+        return;
 
     if ( /CNAME|^A|AAAA/ ! in rec$qtype_name )
         return;
