@@ -35,7 +35,7 @@ event bro_init()
                       },
                       $threshold=auth_errors_threshold,
                       $threshold_crossed(key: SumStats::Key, result: SumStats::Result) = {
-                          NOTICE([$note=Radius_Auth_Bruteforcing_User,
+                          NOTICE([$note=Auth_Bruteforcing_User,
                                   $msg=fmt("Radius auth bruteforcing for user %s", key$str),
                                   $sub=fmt("%.0f auth failed in %s", result["radius.auth_errors.user"]$sum, auth_errors_interval),
                                   $n=to_count(fmt("%.0f", result["radius.auth_errors.user"]$sum))
@@ -49,7 +49,7 @@ event bro_init()
                       },
                       $threshold=auth_errors_threshold,
                       $threshold_crossed(key: SumStats::Key, result: SumStats::Result) = {
-                          NOTICE([$note=Radius_Auth_Bruteforcing_MAC,
+                          NOTICE([$note=Auth_Bruteforcing_MAC,
                                   $msg=fmt("Radius auth bruteforcing for MAC %s", key$str),
                                   $sub=fmt("%.0f auth failed in %s", result["radius.auth_errors.mac"]$sum, auth_errors_interval),
                                   $n=to_count(fmt("%.0f", result["radius.auth_errors.mac"]$sum))
