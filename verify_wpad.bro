@@ -95,6 +95,8 @@ event DNS::log_dns(rec: DNS::Info)
         return;
     if ( ! rec?$query )
         return;
+    if ( rec?$answers )
+        return;
 
     if ( /CNAME|^A|AAAA/ ! in rec$qtype_name )
         return;
