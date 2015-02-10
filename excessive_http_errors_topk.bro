@@ -53,6 +53,7 @@ export {
     const ignore_hosts_orig: set[subnet] &redef;
     const ignore_hosts_resp: set[subnet] &redef;
     const ignore_user_agents: pattern &redef;
+    const ignore_referrers: pattern &redef;
 }
 
 event bro_init()
@@ -129,9 +130,13 @@ event http_reply(c: connection, version: string, code: count,
         return;
     if ( c$id$orig_h in ignore_hosts_orig )
         return;
-    if ( ( c?$http ) && ( c$http?$cluster_client_ip ) && ( to_addr(c$http$cluster_client_ip) in ignore_hosts_orig ) )
+    if ( ! c?$http )
         return;
-    if ( ( c?$http ) && ( c$http?$user_agent ) && ( ignore_user_agents in c$http$user_agent ) )
+    if ( ( c$http?$cluster_client_ip ) && ( to_addr(c$http$cluster_client_ip) in ignore_hosts_orig ) )
+        return;
+    if ( ( c$http?$user_agent ) && ( ignore_user_agents in c$http$user_agent ) )
+        return;
+    if ( ( c$http?$referrer ) && ( ignore_referrers in c$http$referrer ) )
         return;
     if ( code >= 400 ) {
                 add c$http$tags[HTTP_ERROR];
