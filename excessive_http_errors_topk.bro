@@ -142,8 +142,9 @@ event http_reply(c: connection, version: string, code: count,
                 add c$http$tags[HTTP_ERROR];
                 SumStats::observe("http.excessive_errors.victim", [],
                                   [$str=fmt("%s", c$id$resp_h)]);
-                SumStats::observe("http.excessive_errors.attacker", [],
-                                  [$str=fmt("%s", c$http$cluster_client_ip)]);
+                if ( ( c?$http ) && ( c$http?$cluster_client_ip ) )
+                    SumStats::observe("http.excessive_errors.attacker", [],
+                                    [$str=fmt("%s", c$http$cluster_client_ip)]);
     }
 }
 
