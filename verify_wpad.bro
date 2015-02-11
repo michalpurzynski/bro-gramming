@@ -14,6 +14,11 @@
 #
 # Contributor(s):
 # Michal Purzynski mpurzynski@mozilla.com
+#
+# TODO: application/x-ns-proxy-autoconfig
+# "site-local" option 252 ("auto-proxy-config")
+# maybe check for HTTP download from DNS answers only
+# proxy.pac
 
 @load policy/frameworks/files/hash-all-files
 @load base/frameworks/notice
@@ -47,7 +52,7 @@ event file_hash(f: fa_file, kind: string, hash: string)
         if ( f$conns[cid]$http$method != "GET" )
             return;
         else {
-            if ( /^\/wpad\.dat$/ ! in f$conns[cid]$http$uri ) {
+            if ( /^\/wpad\.dat/ ! in f$conns[cid]$http$uri ) {
                 return;
             }
         }
@@ -100,7 +105,8 @@ event DNS::log_dns(rec: DNS::Info)
 
     if ( /CNAME|^A|AAAA/ ! in rec$qtype_name )
         return;
-    if ( /^wpad\./ ! in rec$query )
+    # put your domain name in here
+    if ( /^wpad\..*mozilla\.(net|org|com)/ ! in rec$query )
         return;
 
     for ( vecidx in rec$answers ) {
