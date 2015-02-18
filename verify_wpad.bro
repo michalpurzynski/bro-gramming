@@ -19,6 +19,8 @@
 # "site-local" option 252 ("auto-proxy-config")
 # maybe check for HTTP download from DNS answers only
 # proxy.pac
+# http://wpad.com
+# http://wpad/
 
 @load policy/frameworks/files/hash-all-files
 @load base/frameworks/notice
