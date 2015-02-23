@@ -11,7 +11,7 @@
 
 event dns_end(c: connection, msg: dns_msg)
 {
-if ( c$dns?$answers )
+if ( ( c?$dns ) && ( c$dns?$answers ) )
   {
   local ans = c$dns$answers;
   for ( i in ans )
