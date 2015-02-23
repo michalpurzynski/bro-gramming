@@ -10,7 +10,7 @@
 @load base/frameworks/intel
 @load policy/frameworks/intel/seen/where-locations
 
-local ip6_local: set[subnet] = set(fe80:0000::/10, ff02::/16);
+const ip6_local: set[subnet] = set([fe80:0000::]/10, [ff02::]/16);
 
 event Conn::log_conn(rec: Conn::Info)
 {
