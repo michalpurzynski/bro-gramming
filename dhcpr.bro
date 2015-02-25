@@ -47,7 +47,7 @@ event dhcp_offer(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_l
                 }
                 NOTICE([$note=ServerRoutersInOffer,
                         $msg=fmt("%s is sending suspicious DHCP router list - %s", serv_addr, routers),
-                        $sub=cat(DHCP::reverse_ip(msg$yiaddr)),
+                        $sub=cat(serv_addr),
                         $uid=c$uid,
                         $id=c$id,
                         $identifier=cat(c$uid)]);
