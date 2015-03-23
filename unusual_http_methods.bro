@@ -84,14 +84,14 @@ event http_reply(c: connection, version: string, code: count, reason: string)
                 $msg=fmt("%s successfully used method %s on %s host %s", cluster_client_ip, c$http$method, c$id$resp_h, c$http$host),
                 $uid=c$uid,
                 $id=c$id,
-                $identifier=cat(c$uid)]);
+                $identifier=cat(c$http$host,c$http$method,cluster_client_ip)]);
         } else {
             add c$http$tags[HTTP_BAD_METHOD_FAIL];
             NOTICE([$note=Interesting_HTTP_Method_Fail,
                 $msg=fmt("%s failed to used method %s on %s host %s", cluster_client_ip, c$http$method, c$id$resp_h, c$http$host),
                 $uid=c$uid,
                 $id=c$id,
-                $identifier=cat(c$uid)]);
+                $identifier=cat(c$http$host,c$http$method,cluster_client_ip)]);
         }
     }
 }
