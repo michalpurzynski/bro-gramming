@@ -14,10 +14,6 @@ redef enum Notice::Type += {
     IN_RESP,
 };
 
-export {
-    global bad_subnets: table[subnet] of string &redef;
-}
-
 event new_connection(c: connection)
 {
     if ( ! c?$id )
