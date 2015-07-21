@@ -20,21 +20,9 @@ if ( ( rec?$proto ) && ( rec$proto != tcp ) )
   if ( ( rec$id$orig_h in ip6_local ) || ( rec$id$resp_h in ip6_local ) )
     return;
 
-  # duration, start_time, addl, and hot are required fields although they are not used by Intel framework
-  local dur: interval;
-  local history: string;
+  local c = lookup_connection(rec$id);
 
-  if ( rec?$duration )
-    dur = rec$duration;
-  else dur = 0secs;
-
-  if ( rec?$history )
-    history = rec$history;
-  else history = "";
-
-  local c = [$uid = rec$uid,$id = rec$id,$history = history,$duration = dur,$start_time = 0,$addl = "",$hot = 0];
-
-  Intel::seen([$host=c$id$orig_h, $conn=c, $where=Conn::IN_ORIG]);
-  Intel::seen([$host=c$id$resp_h, $conn=c, $where=Conn::IN_RESP]);
+  Intel::seen([$indicator=cat(c$id$orig_h), $indicator_type=Intel::ADDR, $host=c$id$orig_h, $where=Conn::IN_ORIG, $conn=c]);
+  Intel::seen([$indicator=cat(c$id$resp_h), $indicator_type=Intel::ADDR, $host=c$id$orig_h, $where=Conn::IN_RESP, $conn=c]);
   }
 }
