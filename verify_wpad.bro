@@ -1,16 +1,8 @@
+# A script to detect unknown WPAD advertisements. Known WPAD are whitelisted using known hosts serving wpad.dat files with a precomputed checksum.
+#
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
-#
-# Software distributed under the License is distributed on an "AS IS" basis,
-# WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-# for the specific language governing rights and limitations under the
-# License.
-#
-# The Initial Developer of the Original Code is
-# Mozilla Corporation
-# Portions created by the Initial Developer are Copyright (C) 2014
-# the Initial Developer. All Rights Reserved.
 #
 # Contributor(s):
 # Michal Purzynski mpurzynski@mozilla.com
@@ -19,8 +11,6 @@
 # "site-local" option 252 ("auto-proxy-config")
 # maybe check for HTTP download from DNS answers only
 # proxy.pac
-# http://wpad.com
-# http://wpad/
 
 @load policy/frameworks/files/hash-all-files
 @load base/frameworks/notice

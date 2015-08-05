@@ -5,7 +5,7 @@
 # Contributor(s):
 # Michal Purzynski mpurzynski@mozilla.com
 #
-# Redirect intel hits from the usual noise generators like DNS servers to a separate log file.
+# Redirect intel hits from the usual noise generators like DNS caching servers to a separate log file.
 
 module Intel;
 
