@@ -6,8 +6,8 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 # Contributor(s):
-# Bro IDS team (detect-sqli inspiration)
-# Anthony Verez averez@mozilla.com
+# Bro Team (detect-sqli inspiration)
+# Anthony Verez netantho@gmail.com
 # Michal Purzynski mpurzynski@mozilla.com
 
 @load base/frameworks/notice
@@ -61,6 +61,8 @@ event bro_init()
     # Add filters to the metrics so that the metrics framework knows how to
     # determine when it looks like an actual attack and how to respond when
     # thresholds are crossed.
+
+    # Suggestion: higher priority in MozDef when comes from Mozilla IP to the internetz
 
     # HTTP errors for requests FROM the same host
     local r1: SumStats::Reducer = [$stream="http.excessive_errors.attacker", $apply=set(SumStats::TOPK), $topk_size=topk_attacker_size];

@@ -32,6 +32,7 @@ event ssl_client_hello(c: connection, version: count, possible_ts: time, client_
 		for (cipher in ciphers) {
 			cs += SSL::cipher_desc[ciphers[cipher]] + ",";
 		}
+                # Suggestion: identifier=c$id$orig_h
 		NOTICE([$note=SSL_NonAES_Client,
 			$msg=fmt("%s does not support AES cipher.", c$id$orig_h),
 			$sub=cs,

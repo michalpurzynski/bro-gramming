@@ -17,7 +17,7 @@
 # the Initial Developer. All Rights Reserved.
 #
 # Contributor(s):
-# Anthony Verez averez@mozilla.com
+# Anthony Verez netantho@gmail.com
 # Michal Purzynski mpurzynski@mozilla.com
 
 @load base/frameworks/notice
@@ -69,11 +69,13 @@ export {
     ## Interval at which to watch for the
     ## :bro:id:`AuthBruteforcing::auth_errors_requests_threshold` variable to be crossed.
     ## At the end of each interval the counter is reset.
+    # Suggestion: increase the time window here to 30mins, 1hr if no significant impact on performance. Would probably be better for deduplication.
     const auth_errors_interval = 1min &redef;
 
     ## Interval at which to watch for the
     ## :bro:id:`AuthBruteforcing::excessive_auth_errors_threshold` variable to be
     ## crossed. At the end of each interval the counter is reset.
+    # Suggestion: increase the time window here to 30mins, 1hr if no significant impact on performance. Would probably be better for deduplication.
     const excessive_auth_errors_interval = 1min &redef;
 
     const internal_space: subnet = 10.0.0.0/8 &redef;
@@ -98,6 +100,9 @@ event bro_init() &priority=3
                       },
                       $threshold=auth_errors_threshold,
                       $threshold_crossed(key: SumStats::Key, result: SumStats::Result) = {
+                          # Suggestion: I would probably check here or in MozDef if the attacker host is a Mozilla IP or not
+                          # If it's a Mozilla IP, higher priority
+                          # Also if not already done, in MozDef increase the priority if there's a successful auth after the bruteforcing (correlation with auth_bruteforcing.log, or add the info here if you don't generate auth_bruteforcing.log)
                           NOTICE([$note=HTTP_AuthBruteforcing_Attacker,
                                   $msg=fmt("HTTP auth bruteforcing from attacker %s", key$host),
                                   $sub=fmt("%.0f auth failed in %s", result["http.auth_errors.attacker"]$sum, auth_errors_interval),
@@ -115,6 +120,7 @@ event bro_init() &priority=3
                           return result["http.auth_errors.victim"]$sum;
                       },
                       $threshold=auth_errors_threshold,
+                      # Suggestion: In MozDef, higher priority if it's a service on the intranet.
                       $threshold_crossed(key: SumStats::Key, result: SumStats::Result) = {
                           NOTICE([$note=HTTP_AuthBruteforcing_Victim,
                                   $msg=fmt("HTTP auth bruteforcing to victim %s", key$host),

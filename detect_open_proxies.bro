@@ -34,6 +34,7 @@ event http_header(c: connection, is_orig: bool, name: string, value: string)
     if ( Site::is_local_addr(c$id$orig_h) == T && c$id$orig_h ! in whitelist_proxies_lb )
         if ( name == "X-FORWARDED-FOR" ) {
             add c$http$tags[HTTP_PROXY_NEW];
+            # Suggestion: $suppress_for=1day, $identifier=cat(c$id$orig_h, value), Add value in $msg to know what proxy was used
             NOTICE([$note=Possible_New_Proxy,
                 $msg=fmt("%s has sent outbound HTTP request with the X-FORWARDED-FOR header, looks like a proxy", c$id$orig_h),
                 $uid=c$uid,

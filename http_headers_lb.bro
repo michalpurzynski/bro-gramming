@@ -17,7 +17,7 @@
 # the Initial Developer. All Rights Reserved.
 #
 # Contributor(s):
-# Anthony Verez averez@mozilla.com
+# Anthony Verez netantho@gmail.com
 # Michal Purzynski mpurzynski@mozilla.com
 
 @load base/protocols/http/main

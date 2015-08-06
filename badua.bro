@@ -15,7 +15,7 @@
 # the Initial Developer. All Rights Reserved.
 #
 # Contributor(s):
-# Anthony Verez averez@mozilla.com
+# Anthony Verez netantho@gmail.com
 
 @load base/frameworks/notice
 @load base/protocols/http
@@ -50,6 +50,7 @@ export {
     # Please add signatures at the END of this list and to preserve rule ids
     # (?i:javascriptt) for case-insensitive is not working atm, so we need to do it old school :S
     # see https://bro-tracker.atlassian.net/browse/BIT-26
+    # Suggestion: try to use the intel framework https://github.com/bro/bro/blob/master/scripts/policy/frameworks/intel/seen/http-headers.bro#L46
     global sigs = SigVec(
         [$regex=/.*Apache-HttpClient\/4\.1\.1 \(java 1\.5\).*/,
          $name="apache-client"],

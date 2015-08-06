@@ -7,6 +7,8 @@
 # Contributor(s):
 # Michal Purzynski mpurzynski@mozilla.com
 
+# Suggestion: Same as auth_bruteforcing.bro
+
 module BugzBruteforcing;
 
 export {
