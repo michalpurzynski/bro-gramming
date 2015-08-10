@@ -144,22 +144,10 @@ event http_message_done(c: connection, is_orig: bool, stat: http_message_stat)
                 if (c$http$status_code == 401) {
                     add c$http$tags[HTTP_AUTH_ERROR];
                 }
-                else {
+                else if (c$http$status_code < 400) {
                     auth_success = T;
                     add c$http$tags[HTTP_AUTH_SUCCESS];
                 }
-#                local rec: AuthBruteforcing::Info = [
-#                    $ts=network_time(),
-#                    $uid=c$uid,
-#                    $id=c$id,
-#                    $cluster_client_ip=c$http$cluster_client_ip,
-#                    $status_code=c$http$status_code,
-#                    $host=c$http$host,
-#                    $uri=c$http$uri,
-#                    $username=c$http$username,
-#                    $auth_success=auth_success
-#                ];
-#                Log::write(AuthBruteforcing::LOG, rec);
                 if(!auth_success) {
                     SumStats::observe("http.auth_errors.attacker",
                                       [$host=to_addr(c$http$cluster_client_ip)],
