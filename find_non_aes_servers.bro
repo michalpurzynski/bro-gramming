@@ -26,6 +26,7 @@ event ssl_server_handshake(c: connection, version: count, possible_ts: time, ser
     }
     if ( !hasAES ) {
 	if (c$id$resp_h in Site::local_nets) {
+                # Suggestion: identifier=c$id$orig_h
 		NOTICE([$note=SSL_NonAES_Server,
 			$msg=fmt("%s server negotiated non-AES cipher.", c$id$orig_h),
 			$sub=SSL::cipher_desc[cipher],

@@ -31,6 +31,7 @@ event dhcp_offer(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_l
                 	clientip = DHCP::reverse_ip(msg$yiaddr);
         	else
                 	clientip = c$id$orig_h;
+                # Suggestion: $identifier=serv_addr
 		NOTICE([$note=ServerOffer,
                         $msg=fmt("%s is sending unauthorized DHCP offers", serv_addr),
                         $sub=cat(DHCP::reverse_ip(msg$yiaddr)),
@@ -45,6 +46,7 @@ event dhcp_offer(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_l
                 for (rtr in router) {
                         routers += cat(router[rtr]) + ",";
                 }
+                # Suggestion: $identifier=serv_addr
                 NOTICE([$note=ServerRoutersInOffer,
                         $msg=fmt("%s is sending suspicious DHCP router list - %s", serv_addr, routers),
                         $sub=cat(serv_addr),
@@ -61,6 +63,7 @@ event dhcp_ack(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_lis
                         clientip = DHCP::reverse_ip(msg$yiaddr);
                 else
                         clientip = c$id$orig_h;
+                # Suggestion: $identifier=serv_addr
                 NOTICE([$note=ServerAck,
                         $msg=fmt("%s is sending unauthorized DHCP ack", serv_addr),
                         $sub=cat(DHCP::reverse_ip(msg$yiaddr)),
