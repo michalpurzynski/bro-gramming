@@ -135,13 +135,14 @@ event http_message_done(c: connection, is_orig: bool, stat: http_message_stat)
     if (c$id$resp_h in ignore_host_resp)
         return;
     if (c$id$orig_h in ignore_host_orig)
-	return;
+	    return;
 
     if (((c$id$resp_h in internal_space) && (c$id$resp_p in ports_int)) || ((c$id$resp_h in public_space) && (c$id$resp_p in ports_ext))) {
 
             if (c$http?$username && c$http?$status_code) {
-                local auth_success : bool = F;
+                local auth_success : bool = T;
                 if (c$http$status_code == 401) {
+                    auth_success = F;
                     add c$http$tags[HTTP_AUTH_ERROR];
                 }
                 else if (c$http$status_code < 400) {

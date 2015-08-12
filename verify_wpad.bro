@@ -1,8 +1,16 @@
-# A script to detect unknown WPAD advertisements. Known WPAD are whitelisted using known hosts serving wpad.dat files with a precomputed checksum.
-#
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+# Software distributed under the License is distributed on an "AS IS" basis,
+# WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+# for the specific language governing rights and limitations under the
+# License.
+#
+# The Initial Developer of the Original Code is
+# Mozilla Corporation
+# Portions created by the Initial Developer are Copyright (C) 2014
+# the Initial Developer. All Rights Reserved.
 #
 # Contributor(s):
 # Michal Purzynski mpurzynski@mozilla.com
@@ -27,6 +35,7 @@ export {
 
     global whitelist_hosts: set[string] &redef;
     global wpad_dat_sum: set[string] &redef;
+    const ignore_subnets: set[subnet] &redef;
 }
 
 event file_hash(f: fa_file, kind: string, hash: string)
@@ -35,7 +44,12 @@ event file_hash(f: fa_file, kind: string, hash: string)
     local error_code: int;
     local lastconn: connection;
 
+
     for ( cid in f$conns ) {
+        if ( cid$resp_h in ignore_subnets )
+            return;
+        if ( cid$orig_h in ignore_subnets )
+            return;
         if ( ! f$conns[cid]?$http )
             return;
         if ( ! f$conns[cid]$http?$method )

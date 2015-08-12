@@ -1,12 +1,3 @@
-# Script to detect bugzilla login bruteforcing. A nice example how to parse HTML traffic in Bro.
-#
-# This Source Code Form is subject to the terms of the Mozilla Public
-# License, v. 2.0. If a copy of the MPL was not distributed with this
-# file, You can obtain one at http://mozilla.org/MPL/2.0/.
-#
-# Contributor(s):
-# Michal Purzynski mpurzynski@mozilla.com
-
 module BugzBruteforcing;
 
 export {
@@ -24,6 +15,14 @@ export {
 
     redef enum Log::ID += { LOG };
 
+    # Let's tag the http item
+    redef enum HTTP::Tags += {
+        ## HTTP status code 401, describing a HTTP auth error
+        HTTP_AUTH_ERROR,
+        ## HTTP describing a successful HTTP auth
+        HTTP_AUTH_SUCCESS,
+    };
+
     type Info: record {
         ts:                time        &log;
         uid:               string      &log;
@@ -36,8 +35,8 @@ export {
         auth_success:      bool        &log &optional;
     };
 
-    const auth_errors_threshold: double = 5.0 &redef;
-    const auth_errors_interval = 1min &redef;
+    const auth_errors_threshold: double = 10.0 &redef;
+    const auth_errors_interval = 15min &redef;
 }
 
 event bro_init()
@@ -95,7 +94,6 @@ event http_entity_data(c: connection, is_orig: bool, length: count, data: string
 	if (/Invalid\ Username\ Or\ Password/ in meta_table) {
 		SumStats::observe("bugz.auth_errors.attacker", [$host=to_addr(c$http$cluster_client_ip)], SumStats::Observation($num=1));
                 SumStats::observe("bugz.auth_errors.victim", [$str=c$http$host], SumStats::Observation($num=1));
+                add c$http$tags[HTTP_AUTH_ERROR];
 	}
-
 }
-
