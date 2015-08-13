@@ -7,6 +7,8 @@
 #
 # Do not try to use this with a big number of different $str values, especially
 # in a cluster setup. It will probably lead to excessive resource use.
+#
+# Questions -> johanna@icir.org
 
 @load base/frameworks/sumstats
 

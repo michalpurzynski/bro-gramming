@@ -1,11 +1,7 @@
-# This script calculates the ratio of each ciphersuites proposed by your clients.
+# This script calculates the percentage of the use of the different
+# TLS cipher suites for each host in the local network.
 #
-# This Source Code Form is subject to the terms of the Mozilla Public
-# License, v. 2.0. If a copy of the MPL was not distributed with this
-# file, You can obtain one at http://mozilla.org/MPL/2.0/.
-#
-# Contributor(s):
-# Michal Purzynski mpurzynski@mozilla.com
+# Questions -> johanna@icir.org
 
 @load base/protocols/ssl
 @load ./counttable
