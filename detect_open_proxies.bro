@@ -38,7 +38,8 @@ event http_header(c: connection, is_orig: bool, name: string, value: string)
                 $msg=fmt("%s has sent outbound HTTP request with the X-FORWARDED-FOR header, looks like a proxy", c$id$orig_h),
                 $uid=c$uid,
                 $id=c$id,
-                $identifier=cat(c$uid)]);
+                $suppress_for=1day,
+                $identifier=cat(c$id$orig_h, value)]);
         }
 }
 
