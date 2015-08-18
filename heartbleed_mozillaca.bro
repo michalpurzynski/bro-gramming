@@ -1,4 +1,4 @@
-# Script to detect certs issued Mozilla CA before than 2014-04-11 00:00:00 CA time
+# Script to detect certs issued by internal Mozilla CA before than 2014-04-11 00:00:00 CA time
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
