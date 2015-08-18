@@ -69,12 +69,12 @@ export {
     ## Interval at which to watch for the
     ## :bro:id:`AuthBruteforcing::auth_errors_requests_threshold` variable to be crossed.
     ## At the end of each interval the counter is reset.
-    const auth_errors_interval = 1min &redef;
+    const auth_errors_interval = 10min &redef;
 
     ## Interval at which to watch for the
     ## :bro:id:`AuthBruteforcing::excessive_auth_errors_threshold` variable to be
     ## crossed. At the end of each interval the counter is reset.
-    const excessive_auth_errors_interval = 1min &redef;
+    const excessive_auth_errors_interval = 10min &redef;
 
     const internal_space: subnet = 10.0.0.0/8 &redef;
     const public_space: subnet = 63.245.208.0/20 &redef;
