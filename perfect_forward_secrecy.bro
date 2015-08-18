@@ -2,7 +2,7 @@
 #! Attackers in possession of a private ssl/tls key want be able
 #! to decrypt old communications if perfect forward secrecy is used.
 #! We consider we have perfect forward secrecy if we use DHE
-#! (Diffie-Hellman) of ECDHE (Elliptic-curve Diffie-Hellman)
+#! (Diffie-Hellman) or ECDHE (Elliptic-curve Diffie-Hellman)
 
 @load base/protocols/ssl
 
