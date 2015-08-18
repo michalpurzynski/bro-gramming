@@ -37,7 +37,7 @@ event ssl_client_hello(c: connection, version: count, possible_ts: time, client_
 			$sub=cs,
 			$uid=c$uid,
 			$id=c$id,
-			$identifier=cat(c$uid)]);
+			$identifier=cat(c$id$orig_h)]);
 	}
     }
 }

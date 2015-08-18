@@ -31,7 +31,7 @@ event ssl_server_handshake(c: connection, version: count, possible_ts: time, ser
 			$sub=SSL::cipher_desc[cipher],
 			$uid=c$uid,
 			$id=c$id,
-			$identifier=cat(c$uid)]);
+			$identifier=cat(c$id$resp_h)]);
 	}
     }
 }

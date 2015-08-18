@@ -6,7 +6,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 # Contributor(s):
-# Bro IDS team (detect-sqli inspiration)
+# Bro Team (detect-sqli inspiration)
 # Anthony Verez netantho@gmail.com
 # Michal Purzynski mpurzynski@mozilla.com
 
