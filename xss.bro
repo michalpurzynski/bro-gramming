@@ -17,7 +17,7 @@
 # the Initial Developer. All Rights Reserved.
 #
 # Contributor(s):
-# Anthony Verez averez@mozilla.com
+# Anthony Verez netantho@gmail.com
 
 @load base/frameworks/notice
 @load base/frameworks/sumstats

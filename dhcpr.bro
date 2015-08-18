@@ -34,7 +34,7 @@ event dhcp_offer(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_l
 		NOTICE([$note=ServerOffer,
                         $msg=fmt("%s is sending unauthorized DHCP offers", serv_addr),
                         $sub=cat(DHCP::reverse_ip(msg$yiaddr)),
-			$uid=c$uid,
+			            $uid=c$uid,
                         $id=c$id,
                         $identifier=cat(c$uid)]);
 	}

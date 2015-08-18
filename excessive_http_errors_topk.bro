@@ -7,7 +7,7 @@
 #
 # Contributor(s):
 # Bro IDS team (detect-sqli inspiration)
-# Anthony Verez averez@mozilla.com
+# Anthony Verez netantho@gmail.com
 # Michal Purzynski mpurzynski@mozilla.com
 
 @load base/frameworks/notice

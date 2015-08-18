@@ -12,17 +12,10 @@
 
 const ip6_local: set[subnet] = set([fe80:0000::]/10, [ff02::]/16);
 
-event Conn::log_conn(rec: Conn::Info)
+event connection_state_remove(c: connection)  
 {
-if ( ( rec?$proto ) && ( rec$proto != tcp ) ) 
-  {
-
-  if ( ( rec$id$orig_h in ip6_local ) || ( rec$id$resp_h in ip6_local ) )
-    return;
-
-  local c = lookup_connection(rec$id);
-
-  Intel::seen([$indicator=cat(c$id$orig_h), $indicator_type=Intel::ADDR, $host=c$id$orig_h, $where=Conn::IN_ORIG, $conn=c]);
-  Intel::seen([$indicator=cat(c$id$resp_h), $indicator_type=Intel::ADDR, $host=c$id$orig_h, $where=Conn::IN_RESP, $conn=c]);
-  }
+        if ( c$conn?$proto && ( c$conn$proto != tcp || ( c$conn?$history && c$conn$proto == tcp && "h" !in c$conn$history ) ) ) {
+                    Intel::seen([$host=c$id$orig_h, $conn=c, $where=Conn::IN_ORIG]);
+                            Intel::seen([$host=c$id$resp_h, $conn=c, $where=Conn::IN_RESP]);
+                                }
 }
