@@ -36,6 +36,8 @@ event dhcp_offer(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_l
                         $sub=cat(DHCP::reverse_ip(msg$yiaddr)),
 			            $uid=c$uid,
                         $id=c$id,
+                        $identifier=serv_addr,
+                        $suppress_for=1day,
                         $identifier=cat(c$uid)]);
 	}
 	if (|router| > 1 || (|router| == 1) && router[1] !in trusted_gw )
@@ -50,6 +52,8 @@ event dhcp_offer(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_l
                         $sub=cat(serv_addr),
                         $uid=c$uid,
                         $id=c$id,
+                        $identifier=serv_addr,
+                        $suppress_for=1day,
                         $identifier=cat(c$uid)]);
 	}
 }
@@ -66,6 +70,8 @@ event dhcp_ack(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_lis
                         $sub=cat(DHCP::reverse_ip(msg$yiaddr)),
                         $uid=c$uid,
                         $id=c$id,
+                        $identifier=serv_addr,
+                        $suppress_for=1day,
                         $identifier=cat(c$uid)]);
         }
 }
