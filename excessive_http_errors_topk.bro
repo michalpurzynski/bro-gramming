@@ -6,8 +6,8 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
 # Contributor(s):
-# Bro Team (detect-sqli inspiration)
-# Anthony Verez netantho@gmail.com
+# Bro IDS team (detect-sqli inspiration)
+# Anthony Verez averez@mozilla.com
 # Michal Purzynski mpurzynski@mozilla.com
 
 @load base/frameworks/notice
@@ -36,17 +36,17 @@ export {
     ## Interval at which to watch for the
     ## :bro:id:`HTTP::excessive_http_errors_threshold` variable to be
     ## crossed. At the end of each interval the counter is reset.
-    const excessive_http_errors_interval = 15mins &redef;
-    const report_threshold_attacker = 50 &redef;
-    const report_threshold_victim = 100 &redef;
-    const suppress_attacker = 15mins &redef;
-    const suppress_victim = 15mins &redef;
+    const excessive_http_errors_interval = 5mins &redef;
+    const report_threshold_attacker = 5 &redef;
+    const report_threshold_victim = 10 &redef;
+    const suppress_attacker = 1mins &redef;
+    const suppress_victim = 1mins &redef;
 
-    const topk_attacker_howmuch = 30 &redef;
-    const topk_attacker_size = 1000 &redef;
+    const topk_attacker_howmuch = 3 &redef;
+    const topk_attacker_size = 100 &redef;
 
-    const topk_victim_howmuch = 30 &redef;
-    const topk_victim_size = 1000 &redef;
+    const topk_victim_howmuch = 3 &redef;
+    const topk_victim_size = 100 &redef;
 
     const monitor_ip_spaces: set[subnet] &redef;
     const monitor_ports: set[port] &redef;
@@ -54,6 +54,7 @@ export {
     const ignore_hosts_resp: set[subnet] &redef;
     const ignore_user_agents: pattern &redef;
     const ignore_referrers: pattern &redef;
+    const ignore_host_fields: pattern &redef;
 }
 
 event bro_init()
@@ -137,6 +138,8 @@ event http_reply(c: connection, version: string, code: count,
     if ( ( c$http?$user_agent ) && ( ignore_user_agents in c$http$user_agent ) )
         return;
     if ( ( c$http?$referrer ) && ( ignore_referrers in c$http$referrer ) )
+        return;
+    if ( ( c$http?$host ) && ( ignore_host_fields in c$http$host ) )
         return;
     if ( code >= 400 ) {
                 add c$http$tags[HTTP_ERROR];
