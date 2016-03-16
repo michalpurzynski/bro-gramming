@@ -15,7 +15,7 @@
 # the Initial Developer. All Rights Reserved.
 #
 # Contributor(s):
-# Anthony Verez netantho@gmail.com
+# Anthony Verez averez@mozilla.com
 
 @load base/frameworks/notice
 @load base/protocols/http

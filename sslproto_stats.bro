@@ -1,12 +1,3 @@
-# A script to periodically log a summary of SSL/TLS version used by the servers in your network.
-#
-# This Source Code Form is subject to the terms of the Mozilla Public
-# License, v. 2.0. If a copy of the MPL was not distributed with this
-# file, You can obtain one at http://mozilla.org/MPL/2.0/.
-#
-# Contributor(s):
-# Michal Purzynski mpurzynski@mozilla.com
-
 @load base/protocols/ssl
 
 module SSLProtoStat;

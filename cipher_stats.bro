@@ -1,4 +1,4 @@
-# A script to periodically log a summary of SSL cipher suites used by the servers in your network.
+# Script to calculate the statistics about the SSL/TLS ciphersuites used in your network.
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this

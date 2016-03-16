@@ -34,10 +34,9 @@ event dhcp_offer(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_l
 		NOTICE([$note=ServerOffer,
                         $msg=fmt("%s is sending unauthorized DHCP offers", serv_addr),
                         $sub=cat(DHCP::reverse_ip(msg$yiaddr)),
-			            $uid=c$uid,
+			$uid=c$uid,
                         $id=c$id,
-                        $suppress_for=1day,
-                        $identifier=cat(serv_addr)]);
+                        $identifier=cat(c$uid)]);
 	}
 	if (|router| > 1 || (|router| == 1) && router[1] !in trusted_gw )
 	{
@@ -51,8 +50,7 @@ event dhcp_offer(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_l
                         $sub=cat(serv_addr),
                         $uid=c$uid,
                         $id=c$id,
-                        $suppress_for=1day,
-                        $identifier=cat(serv_addr)]);
+                        $identifier=cat(c$uid)]);
 	}
 }
 event dhcp_ack(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_list, lease: interval, serv_addr: addr, host_name: string)
@@ -68,8 +66,6 @@ event dhcp_ack(c: connection, msg: dhcp_msg, mask: addr, router: dhcp_router_lis
                         $sub=cat(DHCP::reverse_ip(msg$yiaddr)),
                         $uid=c$uid,
                         $id=c$id,
-                        $suppress_for=1day,
-                        $identifier=cat(serv_addr)]);
+                        $identifier=cat(c$uid)]);
         }
 }
-

@@ -35,8 +35,8 @@ export {
         auth_success:      bool        &log &optional;
     };
 
-    const auth_errors_threshold: double = 10.0 &redef;
-    const auth_errors_interval = 15min &redef;
+    const auth_errors_threshold: double = 5.0 &redef;
+    const auth_errors_interval = 5min &redef;
 }
 
 event bro_init()

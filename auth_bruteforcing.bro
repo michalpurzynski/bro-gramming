@@ -17,7 +17,7 @@
 # the Initial Developer. All Rights Reserved.
 #
 # Contributor(s):
-# Anthony Verez netantho@gmail.com
+# Anthony Verez averez@mozilla.com
 # Michal Purzynski mpurzynski@mozilla.com
 
 @load base/frameworks/notice
@@ -64,17 +64,17 @@ export {
     ## Defines the threshold that determines if a auth bruteforcing attack
     ## is ongoing based on the number of requests that appear to be
     ## attacks.
-    const auth_errors_threshold: double = 10.0 &redef;
+    const auth_errors_threshold: double = 50.0 &redef;
 
     ## Interval at which to watch for the
     ## :bro:id:`AuthBruteforcing::auth_errors_requests_threshold` variable to be crossed.
     ## At the end of each interval the counter is reset.
-    const auth_errors_interval = 10min &redef;
+    const auth_errors_interval = 5min &redef;
 
     ## Interval at which to watch for the
     ## :bro:id:`AuthBruteforcing::excessive_auth_errors_threshold` variable to be
     ## crossed. At the end of each interval the counter is reset.
-    const excessive_auth_errors_interval = 10min &redef;
+    const excessive_auth_errors_interval = 1min &redef;
 
     const internal_space: subnet = 10.0.0.0/8 &redef;
     const public_space: subnet = 63.245.208.0/20 &redef;

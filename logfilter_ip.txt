@@ -1,0 +1,6 @@
+#fields	drop_ip	description
+63.245.214.82	v-1030.fw1.releng.scl3.mozilla.net
+63.245.214.162	nat-fw1.scl3.mozilla.com
+63.245.214.159	nat-neo-bughunter.scl3.mozilla.com
+10.22.75.42	nagios1.private.scl3.mozilla.com
+169.254.169.254	aws.metadata.service

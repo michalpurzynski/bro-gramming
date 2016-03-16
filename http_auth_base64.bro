@@ -15,7 +15,7 @@
 # the Initial Developer. All Rights Reserved.
 #
 # Contributor(s):
-# Anthony Verez netantho@gmail.com
+# Anthony Verez averez@mozilla.com
 
 @load base/frameworks/notice
 @load base/protocols/http
@@ -39,10 +39,10 @@ event http_header(c: connection, is_orig: bool, name: string, value: string)
     if ((c$id$resp_p in filter_port_resp) && (c$id$resp_h !in ignore_host_resp) && (c$id$orig_h !in ignore_host_orig)) {
         if (/WWW-Authenticate/ in name && /.*Basic.*/ in value) {
             NOTICE([$note=Basic_Auth_Server,
-                   $msg="Server identified on which Basic Access Authentication is in use.",
-                   $conn=c
-                   $identifier=cat(c$id$resp_h,c$id$resp_p),
-                   $suppress_for=1day
+                    $msg="Server identified on which Basic Access Authentication is in use.",
+                    $conn=c
+#                   $identifier=cat(c$id$resp_h,c$id$resp_p),
+#                   $suppress_for=1day
                    ]);
         }
         if (/Authorization/ in name && /.*Basic.*/ in value)
@@ -50,11 +50,11 @@ event http_header(c: connection, is_orig: bool, name: string, value: string)
             local parts = split1(decode_base64(sub_bytes(value, 7, |value|)), /:/);
             if (|parts| == 2)
               NOTICE([$note=Basic_Auth_Client,
-                     $msg="Client using Basic Access Authentication.",
-                     $sub=fmt("username: %s", parts[1]),
-                     $conn=c
-                     $identifier=cat(c$id$resp_h,c$id$resp_p),
-                     $suppress_for=1day
+                      $msg="Client using Basic Access Authentication.",
+                      $sub=fmt("username: %s", parts[1]),
+                      $conn=c
+#                     $identifier=cat(c$id$resp_h,c$id$resp_p),
+#                     $suppress_for=1day
                      ]);
         }
     }
