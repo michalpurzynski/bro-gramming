@@ -50,11 +50,16 @@ event http_reply(c: connection, version: string, code: count, reason: string)
 {
 
     local cluster_client_ip: addr;
+    local http_host: string;
 
     if ( ! c?$http )
         return;
     if ( ! c$http?$method )
         return;
+    if ( c$http?$host )
+        http_host = c$http$host;
+    else
+        http_host = "NONE";
     if ( c$id$resp_h !in monitor_ip_spaces )
         return;
     if ( c$id$resp_p !in monitor_ports )
@@ -81,17 +86,17 @@ event http_reply(c: connection, version: string, code: count, reason: string)
         if ( c$http$status_code < 300 ) {
             add c$http$tags[HTTP_BAD_METHOD_OK];
             NOTICE([$note=Interesting_HTTP_Method_Success,
-                $msg=fmt("%s successfully used method %s on %s host %s", cluster_client_ip, c$http$method, c$id$resp_h, c$http$host),
+                $msg=fmt("%s successfully used method %s on %s host %s", cluster_client_ip, c$http$method, c$id$resp_h, http_host),
                 $uid=c$uid,
                 $id=c$id,
-                $identifier=cat(c$http$host,c$http$method,cluster_client_ip)]);
+                $identifier=cat(http_host,c$http$method,cluster_client_ip)]);
         } else {
             add c$http$tags[HTTP_BAD_METHOD_FAIL];
             NOTICE([$note=Interesting_HTTP_Method_Fail,
-                $msg=fmt("%s failed to used method %s on %s host %s", cluster_client_ip, c$http$method, c$id$resp_h, c$http$host),
+                $msg=fmt("%s failed to used method %s on %s host %s", cluster_client_ip, c$http$method, c$id$resp_h, http_host),
                 $uid=c$uid,
                 $id=c$id,
-                $identifier=cat(c$http$host,c$http$method,cluster_client_ip)]);
+                $identifier=cat(http_host,c$http$method,cluster_client_ip)]);
         }
     }
 }

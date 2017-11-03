@@ -1,4 +1,4 @@
-# Add country codes for the originator and responder to each connection in the conn log.
+##! Add country codes for the originator and responder to each connection in the conn log.
 
 redef record Conn::Info += {
     orig_cc: string &log &optional;

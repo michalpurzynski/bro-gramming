@@ -43,6 +43,7 @@ export {
 		## Log which backend server handled the connection.
 		## Might be useful to know where to look for more logs or which server might be under the load
 		backend_server: string &log &optional;
+        version: string &log &optional;
 	};
 
 	redef enum Intel::Where += {
@@ -86,3 +87,7 @@ event http_header(c: connection, is_orig: bool, name: string, value: string)
 	}
 }
 
+event http_request(c: connection, method: string, original_URI: string, unescaped_URI: string, version: string)
+{
+    c$http$version = version;
+}
