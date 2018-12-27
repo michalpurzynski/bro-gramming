@@ -44,6 +44,7 @@ export {
 		## Might be useful to know where to look for more logs or which server might be under the load
 		backend_server: string &log &optional;
         version: string &log &optional;
+        redirect_dst: string &log &optional;
 	};
 
 	redef enum Intel::Where += {
@@ -68,6 +69,13 @@ event http_header(c: connection, is_orig: bool, name: string, value: string)
 	if (!c?$http)
 		return;
 
+	if (name == "LOCATION") {
+			c$http$redirect_dst = value;
+#			 Intel::seen([$host=to_addr(value),
+#				 $indicator_type=Intel::DOMAIN,
+#				 $conn=c,
+#				 $where=HTTP::IN_X_BACKEND_SERVER_HEADER]);
+	}
 	if (name == "X-CLUSTER-CLIENT-IP" ) {
 		#if (is_valid_ip(value)) {
 			c$http$cluster_client_ip = value;

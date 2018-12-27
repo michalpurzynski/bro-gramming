@@ -1,4 +1,5 @@
 #! SslWeakProtocols give percentage of SSL weak protocols used (<= SSL2)
+# Original author lost in the battle - either Johanna Amann, Bro/ICSI - johanna@icir.org or Michal Purzynski
 
 @load base/protocols/ssl
 @load base/frameworks/sumstats

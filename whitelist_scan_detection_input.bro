@@ -15,11 +15,10 @@ type Idx: record {
 };
 
 global whitelist_scan_ip: set[subnet] = {} &synchronized;
-#global whitelist_scan_ip: set[subnet] = {10.22.7.0/24, 10.8.121.0/24, 10.252.75.8/32};
 
 event bro_init()
 {
-    Input::add_table([$source="/opt/bro/share/bro/brozilla/whitelist_scan_ip.txt",
+    Input::add_table([$source="/etc/bro/scripts/brozilla/whitelist_scan_ip.txt",
             $name="whitelist_scan_ip",
             $idx=Idx,
             $destination=whitelist_scan_ip,

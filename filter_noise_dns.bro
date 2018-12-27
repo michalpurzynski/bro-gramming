@@ -13,6 +13,7 @@ event bro_init()
         Log::remove_default_filter(DNS::LOG);
         Log::add_filter(DNS::LOG, [$name = "dns-noise",
                         $path_func(id: Log::ID, path: string, rec: DNS::Info) = {
-                                return (rec?$query && /yourfancydomain.(org|net|com)$|anotherdomain.com$/ in rec$query) ? "dns-noise" : "dns";
+                                return (rec?$query && /.mozilla.(org|net|com)$|.newrelic.com$|.github.(io|com)$|.allizom.org$|.local$|^localhost_prl$/ in rec$query) ? "dns-noise" : "dns";
                         }]);
 }
+

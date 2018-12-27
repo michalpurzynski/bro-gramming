@@ -14,10 +14,8 @@ event bro_init()
         Log::add_filter(Files::LOG, [$name = "files-noise",
                                       $pred(rec: Files::Info) = {
                                         for (tx_host in rec$tx_hosts) {
-                                            if (Site::is_local_addr(tx_host)) {
-                                                if ((rec?$mime_type) && (/^application\/pkix-cert$/ in rec$mime_type))
+                                                if ((rec?$mime_type) && ((rec$mime_type == "application/pkix-cert") || (rec$mime_type == "application/x-x509-ca-cert") || (rec$mime_type == "application/x-x509-user-cert") ))
                                                     return F;
-                                                }
                                             return T;
                                             }
                                         return T;

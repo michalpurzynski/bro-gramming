@@ -16,7 +16,8 @@ module Intel;
 export {
     redef enum Intel::Type += {
         CERT_ISSUER,
-        CERT_SUBJECT
+        CERT_SUBJECT,
+        CERT_SERIAL
     };
 
     redef enum Intel::Where += {
@@ -57,3 +58,22 @@ event ssl_established(c: connection)
     }
 }
 
+event x509_certificate(f: fa_file, cert_ref: opaque of x509, cert: X509::Certificate)
+{
+    Intel::seen([$indicator=cert$serial, $indicator_type=Intel::CERT_SERIAL, $f=f, $where=X509::IN_CERT]);
+   if ( ! cert?$serial )
+       return;
+
+   Intel::seen([$indicator=cert$serial, $indicator_type=Intel::CERT_SERIAL, $f=f, $where=X509::IN_CERT]);
+}
+
+event file_hash(f: fa_file, kind: string, hash: string)
+{
+   if ( ! f?$info || ! f$info?$x509 || kind != "sha1" )
+       return;
+
+   Intel::seen([$indicator=hash,
+                $indicator_type=Intel::CERT_HASH,
+                $f=f,
+                $where=X509::IN_CERT]);
+ }

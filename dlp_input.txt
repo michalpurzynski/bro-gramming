@@ -1,0 +1,2 @@
+#fields	wl_src	wl_dst	wl_port	t	wl_comment
+10.55.55.0/24	10.77.77.88/32	445	tcp	Big SMB Example

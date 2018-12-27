@@ -35,8 +35,8 @@ export {
         auth_success:      bool        &log &optional;
     };
 
-    const auth_errors_threshold: double = 5.0 &redef;
-    const auth_errors_interval = 5min &redef;
+    const auth_errors_threshold: double = 10.0 &redef;
+    const auth_errors_interval = 15min &redef;
 }
 
 event bro_init()
@@ -74,7 +74,6 @@ event bro_init()
                           NOTICE([$note=HTTP_BugzBruteforcing_Victim,
                                   $msg=fmt("HTTP auth bruteforcing to victim %s", key$str),
                                   $sub=fmt("%s auth failed in %s", result["bugz.auth_errors.victim"]$sum, auth_errors_interval),
-#                                  $src=key$str,
                                   $n=to_count(fmt("%.0f", result["bugz.auth_errors.victim"]$sum))
                           ]);
                       }]);

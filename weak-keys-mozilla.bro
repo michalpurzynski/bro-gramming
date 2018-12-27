@@ -1,5 +1,6 @@
 ##! Generate notices when SSL/TLS connections use certificates or DH parameters
 ##! that have potentially unsafe key lengths.
+# Original author lost in the battle - either Johanna Amann, Bro/ICSI - johanna@icir.org or Michal Purzynski
 
 @load base/protocols/ssl
 @load base/frameworks/notice

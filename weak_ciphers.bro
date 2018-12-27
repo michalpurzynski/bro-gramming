@@ -1,5 +1,6 @@
 #! SslWeakCiphers give percentage of SSL weak ciphers used (< 2048 bits key except for ECDHE)
 #! Depends on protocols/ssl/client_ciphers.bro
+# Original author lost in the battle - either Johanna Amann, Bro/ICSI - johanna@icir.org or Michal Purzynski
 
 @load base/protocols/ssl
 

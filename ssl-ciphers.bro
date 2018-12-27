@@ -1,5 +1,6 @@
 # This script calculates the percentage of the use of the different
 # TLS cipher suites for each host in the local network.
+# Written by Johanna Amann
 
 @load base/protocols/ssl
 @load ./counttable

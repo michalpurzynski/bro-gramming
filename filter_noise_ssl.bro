@@ -19,7 +19,7 @@ event bro_init()
                             return F;
                         if ((rec$id$orig_h in drop_ip_from_log) || (rec$id$resp_h in drop_ip_from_log))
                             return F;
-			if ((rec?$server_name) && (/alamakota\.domain\.org|alamakota2\.domain\.org|alamakota3\.domain\.org/ in rec$server_name))
+			if ((rec?$server_name) && (/aus3\.mozilla\.org|aus4\.mozilla\.org|aus5\.mozilla\.org/ in rec$server_name))
 			    return F;
                         return T;
                         }

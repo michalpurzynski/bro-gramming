@@ -36,17 +36,17 @@ export {
     ## Interval at which to watch for the
     ## :bro:id:`HTTP::excessive_http_errors_threshold` variable to be
     ## crossed. At the end of each interval the counter is reset.
-    const excessive_http_errors_interval = 5mins &redef;
-    const report_threshold_attacker = 5 &redef;
-    const report_threshold_victim = 10 &redef;
-    const suppress_attacker = 1mins &redef;
-    const suppress_victim = 1mins &redef;
+    const excessive_http_errors_interval = 15mins &redef;
+    const report_threshold_attacker = 50 &redef;
+    const report_threshold_victim = 100 &redef;
+    const suppress_attacker = 15mins &redef;
+    const suppress_victim = 15mins &redef;
 
-    const topk_attacker_howmuch = 3 &redef;
-    const topk_attacker_size = 100 &redef;
+    const topk_attacker_howmuch = 30 &redef;
+    const topk_attacker_size = 1000 &redef;
 
-    const topk_victim_howmuch = 3 &redef;
-    const topk_victim_size = 100 &redef;
+    const topk_victim_howmuch = 30 &redef;
+    const topk_victim_size = 1000 &redef;
 
     const monitor_ip_spaces: set[subnet] &redef;
     const monitor_ports: set[port] &redef;

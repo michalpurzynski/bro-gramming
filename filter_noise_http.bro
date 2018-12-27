@@ -13,7 +13,7 @@ event bro_init()
         Log::remove_default_filter(HTTP::LOG);
         Log::add_filter(HTTP::LOG, [$name = "http-noise",
                         $path_func(id: Log::ID, path: string, rec: HTTP::Info) = {
-				return (rec?$user_agent && /UA-you-dont-like/ in rec$user_agent) ? "http-noise" : "http";
+				return (rec?$user_agent && /HTTP-Monitor/ in rec$user_agent) ? "http-noise" : "http";
                         }]);
 }
 
